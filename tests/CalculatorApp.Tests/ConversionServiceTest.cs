@@ -106,4 +106,19 @@ public class ConversionServiceTests
             () => _conversionService.GhsToUsd(ghsAmount, exchangeRate)
         );
     }
+    [Fact]
+    public void CelsiusToFahrenheit_ShouldHandleNegativeTemperatures()
+    {
+        var result = _conversionService.CelsiusToFahrenheit(-40m);
+
+        Assert.Equal(-40m, result);
+    }
+
+    [Fact]
+    public void GhsToUsd_ShouldReturnZeroWhenAmountIsZero()
+    {
+        var result = _conversionService.GhsToUsd(0m, 12.5m);
+
+        Assert.Equal(0m, result);
+    }
 }

@@ -80,4 +80,27 @@ public class CalculatorServiceTests
             () => _calculator.Divide(firstNumber, secondNumber)
         );
     }
+    [Fact]
+    public void Add_ShouldHandleNegativeNumbers()
+    {
+        var result = _calculator.Add(-10m, 5m);
+
+        Assert.Equal(-5m, result);
+    }
+
+    [Fact]
+    public void Multiply_ShouldHandleDecimalNumbers()
+    {
+        var result = _calculator.Multiply(2.5m, 4m);
+
+        Assert.Equal(10m, result);
+    }
+
+    [Fact]
+    public void Divide_ShouldReturnDecimalResult()
+    {
+        var result = _calculator.Divide(5m, 2m);
+
+        Assert.Equal(2.5m, result);
+    }
 }
