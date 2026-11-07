@@ -55,3 +55,23 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Windows and macOS
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Visual Studio Code
+.vscode/
+
+# Sensitive configuration files
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+.env.*
+!.env.example
