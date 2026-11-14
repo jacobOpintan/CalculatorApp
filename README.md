@@ -1,4 +1,3 @@
-
 # Smart Calculator and Unit Converter
 
 A C# console application that provides basic arithmetic operations and common unit conversions. The application also supports converting Ghanaian Cedis (GHS) to United States Dollars (USD) using an exchange rate supplied by the user.
@@ -11,6 +10,7 @@ A C# console application that provides basic arithmetic operations and common un
 - Multiplication
 - Division
 - Division-by-zero handling
+- Overflow handling
 
 ### Unit Converter
 - Kilometres to miles
@@ -19,12 +19,19 @@ A C# console application that provides basic arithmetic operations and common un
 - Fahrenheit to Celsius
 - Ghanaian Cedis (GHS) to US Dollars (USD)
 
-### Input Validation
+### Input Validation and Reliability
 - Validates numerical input.
 - Rejects invalid menu selections.
 - Prevents invalid or non-positive exchange rates.
 - Handles division by zero without terminating the application.
+- Handles calculation and conversion overflow with friendly error messages.
+- Handles end-of-input gracefully instead of entering an infinite input loop.
 - Allows users to return to previous menus or exit the application.
+
+### Result Formatting
+- General calculation and unit conversion results display up to four decimal places.
+- Currency conversion results display two decimal places.
+- Distance conversions use a shared conversion factor for consistency.
 
 ## Technologies Used
 
@@ -69,7 +76,7 @@ dotnet run --project src/CalculatorApp
 
 ## Running the Tests
 
-The project uses xUnit for automated unit testing.
+The project uses xUnit for automated testing.
 
 To execute the test suite, run:
 
@@ -77,7 +84,18 @@ To execute the test suite, run:
 dotnet test
 ```
 
-The tests cover arithmetic operations, division by zero, decimal calculations, unit conversions, and exchange-rate validation.
+The test suite currently contains **31 automated tests**, covering:
+
+- Arithmetic operations and edge cases.
+- Division by zero.
+- Decimal calculations and overflow.
+- Unit and currency conversions.
+- Exchange-rate validation.
+- Invalid and out-of-range input.
+- End-of-input handling.
+- Menu navigation and application flow.
+- Numeric result formatting.
+- Distance conversion consistency.
 
 ## Project Structure
 
@@ -85,6 +103,8 @@ The tests cover arithmetic operations, division by zero, decimal calculations, u
 CalculatorApp/
 ├── src/
 │   └── CalculatorApp/
+│       ├── Application/
+│       │   └── CalculatorApplication.cs
 │       ├── Services/
 │       │   ├── CalculatorService.cs
 │       │   └── ConversionService.cs
@@ -95,21 +115,26 @@ CalculatorApp/
 ├── tests/
 │   └── CalculatorApp.Tests/
 │       ├── CalculatorServiceTests.cs
-│       └── ConversionServiceTests.cs
+│       ├── ConversionServiceTests.cs
+│       ├── InputHelperTests.cs
+│       └── CalculatorApplicationTests.cs
 │
 ├── CalculatorApp.sln
 └── README.md
 ```
 
-### Architecture and Design Decisions
+## Architecture and Design Decisions
 
 The application separates its responsibilities into different components:
 
-- **Program.cs:** Handles the console interface, displays menus, receives user choices, and coordinates application operations.
+- **Program.cs:** Entry point of the application. It supplies the console input and output streams to the application.
+- **CalculatorApplication.cs:** Coordinates the application flow, displays menus, receives user choices, and invokes the appropriate services.
 - **CalculatorService.cs:** Contains the business logic for arithmetic operations.
 - **ConversionService.cs:** Contains the logic for unit and currency conversions.
 - **InputHelper.cs:** Provides reusable methods for validating and reading user input.
-- **CalculatorApp.Tests:** Contains automated unit tests for the calculator and conversion services.
+- **CalculatorApp.Tests:** Contains automated tests for arithmetic operations, conversions, input validation, and application interaction.
+
+The application uses `TextReader` and `TextWriter` abstractions to separate console interaction from application logic. This makes it possible to simulate user input and capture application output during automated testing.
 
 This separation makes the application easier to understand, test, maintain, and extend.
 
@@ -141,6 +166,8 @@ The exchange rate must be greater than zero.
 - The application does not store calculation or conversion history.
 - Numerical input uses a dot (`.`) as the decimal separator.
 - Currency conversion results are displayed to two decimal places.
+- General calculation and unit conversion results are displayed to a maximum of four decimal places.
+- Arithmetic operations use the `decimal` data type, which has a finite range. Values outside that range are handled through overflow exceptions.
 
 ## Future Improvements
 
@@ -150,5 +177,4 @@ Possible improvements include:
 - Adding support for more currencies and measurement units.
 - Introducing a graphical user interface.
 - Saving calculation and conversion history.
-- Expanding automated tests to cover console input and interaction.
 
