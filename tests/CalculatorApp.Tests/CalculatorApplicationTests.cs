@@ -67,4 +67,21 @@ public class CalculatorApplicationTests
         Assert.Contains("===== CALCULATOR =====", output);
         Assert.Contains("===== SMART CALCULATOR =====", output);
     }
+
+    [Fact]
+public void Run_ShouldDisplayFriendlyMessage_WhenCalculationOverflows()
+{
+    using var reader = new StringReader(
+        "1\n3\n79228162514264337593543950335\n2\n0\n0");
+
+    using var writer = new StringWriter();
+
+    var application = new CalculatorApplication(reader, writer);
+
+    application.Run();
+
+    Assert.Contains(
+        "calculation result is too large or too small",
+        writer.ToString());
+}
 }

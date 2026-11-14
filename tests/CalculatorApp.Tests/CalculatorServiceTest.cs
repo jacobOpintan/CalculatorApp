@@ -103,4 +103,11 @@ public class CalculatorServiceTests
 
         Assert.Equal(2.5m, result);
     }
+
+    [Fact]
+public void Multiply_ShouldThrowOverflowException_WhenResultExceedsDecimalRange()
+{
+    Assert.Throws<OverflowException>(() =>
+        _calculator.Multiply(decimal.MaxValue, 2m));
+}
 }

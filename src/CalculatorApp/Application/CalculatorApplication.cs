@@ -138,8 +138,14 @@ public class CalculatorApplication
             {
                 _writer.WriteLine($"Error: {ex.Message}");
             }
-        }
-    }
+            catch (OverflowException)
+            {
+                _writer.WriteLine(
+                    "Error: The calculation result is too large or too small to be represented."
+                );
+            }
+                    }
+                }
 
     private void RunConverter()
     {
@@ -231,6 +237,10 @@ public class CalculatorApplication
             catch (ArgumentOutOfRangeException ex)
             {
                 _writer.WriteLine($"Error: {ex.Message}");
+            }
+            catch (OverflowException)
+            {
+                _writer.WriteLine("Error: The conversion result is too large or too small to be represented");
             }
         }   
     }
