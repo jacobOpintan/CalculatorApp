@@ -96,4 +96,18 @@ public void Run_ShouldFormatCalculationResultToFourDecimalPlaces()
     Assert.Contains("Result: 3.3333", writer.ToString());
 }
 
+[Fact]
+public void ProgramRun_ShouldUseProvidedInputAndOutputStreams()
+{
+    using var reader = new StringReader("0");
+    using var writer = new StringWriter();
+
+    Program.Run(reader, writer);
+
+    Assert.Contains(
+        "Thank you for using Smart Calculator!",
+        writer.ToString()); 
+}
+
+
 }

@@ -84,7 +84,7 @@ To execute the test suite, run:
 dotnet test
 ```
 
-The test suite currently contains **31 automated tests**, covering:
+The test suite currently contains **32 automated tests**, covering:
 
 - Arithmetic operations and edge cases.
 - Division by zero.
@@ -127,7 +127,7 @@ CalculatorApp/
 
 The application separates its responsibilities into different components:
 
-- **Program.cs:** Entry point of the application. It supplies the console input and output streams to the application.
+- **Program.cs:** Entry point of the application. It supplies the console input and output streams to the application through its Run method.
 - **CalculatorApplication.cs:** Coordinates the application flow, displays menus, receives user choices, and invokes the appropriate services.
 - **CalculatorService.cs:** Contains the business logic for arithmetic operations.
 - **ConversionService.cs:** Contains the logic for unit and currency conversions.

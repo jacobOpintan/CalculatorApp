@@ -5,13 +5,16 @@ using CalculatorApp.Application;
 
 namespace CalculatorApp;
 
-internal class Program
+public static class Program
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
-        var application = new CalculatorApplication(
-            Console.In,
-            Console.Out);
+        Run(Console.In, Console.Out);
+    }
+
+    public static void Run(TextReader reader, TextWriter writer)
+    {
+        var application = new CalculatorApplication(reader, writer);
 
         application.Run();
     }
