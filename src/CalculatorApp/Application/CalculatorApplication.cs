@@ -1,3 +1,4 @@
+using System.Globalization;
 using CalculatorApp.Services;
 using CalculatorApp.Utilities;
 namespace CalculatorApp.Application;
@@ -17,6 +18,13 @@ public class CalculatorApplication
         _writer= writer;
         _calculator = new CalculatorService();
         _converter = new ConversionService();
+    }
+    private static string FormatResult(decimal value)
+    {
+        return value.ToString(
+            "0.####",
+            CultureInfo.InvariantCulture
+        );
     }
 
      public void Run()
@@ -132,7 +140,7 @@ public class CalculatorApplication
                         "Invalid calculator operation.")
                 };
 
-                _writer.WriteLine($"Result: {result}");
+                _writer.WriteLine($"Result: {FormatResult(result)}");
             }
             catch (DivideByZeroException ex)
             {
@@ -195,22 +203,22 @@ public class CalculatorApplication
                 {
                     case 1:
                         _writer.WriteLine(
-                            $"{value.Value} km = {_converter.KilometresToMiles(value.Value)} miles");
+                            $"{FormatResult(value.Value)} km = {FormatResult(_converter.KilometresToMiles(value.Value))} miles");
                         break;
 
                     case 2:
                         _writer.WriteLine(
-                            $"{value.Value} miles = {_converter.MilesToKilometres(value.Value)} km");
+                            $"{FormatResult(value.Value)} miles = {FormatResult(_converter.MilesToKilometres(value.Value))} km");
                         break;
 
                     case 3:
                         _writer.WriteLine(
-                            $"{value.Value} °C = {_converter.CelsiusToFahrenheit(value.Value)} °F");
+                            $"{FormatResult(value.Value)} °C = {FormatResult(_converter.CelsiusToFahrenheit(value.Value))} °F");
                         break;
 
                     case 4:
                         _writer.WriteLine(
-                            $"{value.Value} °F = {_converter.FahrenheitToCelsius(value.Value)} °C");
+                            $"{FormatResult(value.Value)} °F = {FormatResult(_converter.FahrenheitToCelsius(value.Value))} °C");
                         break;
 
                     case 5:
@@ -230,7 +238,7 @@ public class CalculatorApplication
                             exchangeRate.Value);
 
                         _writer.WriteLine(
-                            $"{value.Value} GHS = {usd:F2} USD");
+                            $"{FormatResult(value.Value)} GHS = {FormatResult(usd)} USD");
                         break;
                 }
             }

@@ -121,4 +121,16 @@ public class ConversionServiceTests
 
         Assert.Equal(0m, result);
     }
+
+    [Fact]
+public void KilometresToMilesAndBack_ShouldReturnOriginalValue()
+{
+    decimal originalKilometres = 100m;
+
+    decimal miles = _conversionService.KilometresToMiles(originalKilometres);
+
+    decimal convertedKilometres = _conversionService.MilesToKilometres(miles);
+
+    Assert.Equal(originalKilometres, convertedKilometres);
+}
 }

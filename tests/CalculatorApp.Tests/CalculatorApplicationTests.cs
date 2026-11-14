@@ -83,5 +83,17 @@ public void Run_ShouldDisplayFriendlyMessage_WhenCalculationOverflows()
     Assert.Contains(
         "calculation result is too large or too small",
         writer.ToString());
+}[Fact]
+public void Run_ShouldFormatCalculationResultToFourDecimalPlaces()
+{
+    using var reader = new StringReader("1\n4\n10\n3\n0\n0");
+    using var writer = new StringWriter();
+
+    var application = new CalculatorApplication(reader, writer);
+
+    application.Run();
+
+    Assert.Contains("Result: 3.3333", writer.ToString());
 }
+
 }

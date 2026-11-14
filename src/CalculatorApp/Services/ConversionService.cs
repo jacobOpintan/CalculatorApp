@@ -3,8 +3,8 @@ namespace CalculatorApp.Services;
 
 public class ConversionService
 {
+    // One shared conversion factor.
     private const decimal KilometresToMilesFactor = 0.621371m;
-    private const decimal MilesToKilometresFactor = 1.609344m;
 
     public decimal KilometresToMiles(decimal kilometres)
     {
@@ -13,7 +13,7 @@ public class ConversionService
 
     public decimal MilesToKilometres(decimal miles)
     {
-        return miles * MilesToKilometresFactor;
+        return miles / KilometresToMilesFactor;
     }
 
     public decimal CelsiusToFahrenheit(decimal celsius)
